@@ -26,7 +26,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         listLocations = intent.getSerializableExtra("list") as ArrayList<LatLng>
-        ok.setOnClickListener {
+        home.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
         }
     }

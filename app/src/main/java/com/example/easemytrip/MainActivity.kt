@@ -43,16 +43,17 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         start.setOnClickListener {
-            startTime = getCurrentTime()
+            startTime = getFormattedTime()
 
             Log.d("START TIME",startTime)
 
             end.visibility = VISIBLE
             progress.visibility = VISIBLE
+            card.visibility = VISIBLE
             start.visibility = GONE
+            startAnim.visibility = GONE
 
-            Toast.makeText(applicationContext, R.string.message, Toast.LENGTH_LONG).show()
-
+           status.text = "Trip started at ${getCurrentTime()}"
             if (!checkPermissions()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions()
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         end.setOnClickListener {
-            endTime = getCurrentTime()
+            endTime = getFormattedTime()
 
             Log.d("END TIME",endTime)
 
@@ -130,8 +131,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun getCurrentTime() : String{
-        var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+    private fun getFormattedTime() : String{
+        var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return sdf.format(System.currentTimeMillis())
+    }
+
+    private fun getCurrentTime() : String {
+        var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(System.currentTimeMillis())
     }
@@ -142,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient?.lastLocation!!.addOnCompleteListener(this) { task ->
             if (task.isSuccessful && task.result != null) {
                 lastLocation = task.result!!
-                locations.add(Location(latitude = lastLocation.latitude,longitude = lastLocation.longitude,timestamp = getCurrentTime()))
+                locations.add(Location(latitude = lastLocation.latitude,longitude = lastLocation.longitude,timestamp = getFormattedTime()))
             }
             else {
                 Log.w(TAG, "getLastLocation:exception", task.exception)

@@ -3,30 +3,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/start"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/start"
-        android:layout_centerInParent="true"
-        android:padding="16dp"/>
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple_500"
+        android:textColor="@color/white" />
     <Button
         android:id="@+id/end"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/end"
-        android:gravity="end"
-        android:layout_alignParentEnd="true"
-        android:padding="16dp"
-        android:visibility="gone"/>
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
         android:visibility="gone"
-        />
+        android:background="@color/purple_500"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:lottie_fileName="roadTrip.json"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:visibility="gone" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/startAnim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="start.json"
+        app:lottie_loop="true"
+        android:layout_marginTop="100dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progress"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="5dp"
+        android:visibility="gone"
+        android:layout_margin="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Horray Trip started"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:padding="16dp"/>
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:padding="16dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>
